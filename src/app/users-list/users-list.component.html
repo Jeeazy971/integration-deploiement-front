@@ -1,0 +1,9 @@
+<div *ngIf="users.length > 0">
+  <h2>Liste des utilisateurs inscrits</h2>
+  <ul class="user-list">
+    <li *ngFor="let user of users">{{ user.firstName }} {{ user.lastName }} - {{ user.email }}</li>
+  </ul>
+</div>
+<div *ngIf="users.length === 0">
+  <p>Aucun utilisateur inscrit.</p>
+</div>
