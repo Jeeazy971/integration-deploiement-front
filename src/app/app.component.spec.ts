@@ -1,16 +1,12 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterModule.forRoot([])
-      ],
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajout pour ignorer les erreurs de composants non déclarés
     }).compileComponents();
   });
 
@@ -20,16 +16,19 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'front'`, () => {
+  it('should initialize with an empty users array', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('front');
+    expect(app.users).toEqual([]);
   });
 
-  it('should render title', () => {
+  it('should add a user when onUserRegistered is called', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, front');
+    const app = fixture.componentInstance;
+    const user = { firstName: 'John', lastName: 'Doe' };
+
+    app.onUserRegistered(user);
+    expect(app.users.length).toBe(1);
+    expect(app.users[0]).toEqual(user);
   });
 });
