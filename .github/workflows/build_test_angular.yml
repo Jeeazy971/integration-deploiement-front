@@ -20,20 +20,28 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+
+      # Installe les dépendances Chromium nécessaires
+      - name: Install Chromium dependencies
+        run: sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxcomposite1 libxrandr2 libxdamage1 libxkbcommon0 libpango-1.0-0 libcairo2
+
       - name: npm ci, build and test
         run: |
           npm ci
           npm run build --if-present
-          npm test
+          # Exécute les tests en mode headless
+          npm test -- --browsers ChromeHeadless
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: build
           if-no-files-found: error
-          
+
   deploy:
     environment:
       name: github-pages
@@ -50,4 +58,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-        
