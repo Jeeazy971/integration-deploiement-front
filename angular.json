@@ -101,7 +101,13 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "repo": "https://github.com/Jeeazy971/integration-deploiement-front.git",
+            "branch": "gh-pages",
+            "name": "Josué BAYIDIKILA",
+            "email": "josue-dev@outlook.fr"
+          }
         }
       }
     }
