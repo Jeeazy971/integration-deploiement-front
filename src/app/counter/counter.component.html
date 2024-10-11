@@ -1,0 +1,5 @@
+<div class="counter-container">
+  <h1>Counter: {{ count }}</h1>
+  <button id="decrement-btn" (click)="decrement()" [disabled]="count === 0">-</button>
+  <button id="increment-btn" (click)="increment()">+</button>
+</div>
