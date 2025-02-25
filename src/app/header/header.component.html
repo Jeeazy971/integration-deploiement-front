@@ -1,0 +1,10 @@
+<header>
+    <nav>
+      <button (click)="navigateToLogin()">Connexion</button>
+      @if(isLoggedIn) {
+        <button (click)="navigateToRegistration()">S'enregistrer</button>
+        <button (click)="navigateToUsers()">Liste des utilisateurs</button>
+        <button (click)="logout()">Déconnexion</button>
+      }
+    </nav>
+  </header>
