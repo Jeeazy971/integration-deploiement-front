@@ -1,0 +1,21 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" />
+      @if(isFieldInvalid('email'))
+        {
+            <div class="error">Email invalide</div>
+        }
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="password" class="form-control" />
+      @if(isFieldInvalid('password'))
+      {
+      <div class="error">Mot de passe invalide</div>
+      }
+    </div>
+  
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Se connecter</button>
+</form>
