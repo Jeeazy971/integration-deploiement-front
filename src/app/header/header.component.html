@@ -1,15 +1,18 @@
-<header>
-    <nav>
-      @if(isLoggedIn) {
-        @if(isAdmin) {
-          <button (click)="navigateToRegistration()">Ajouter un utilisateur</button>
+<header class="navbar bg-base-200 shadow-md p-4 rounded-lg">
+  <div class="flex-1">
+    <a class="text-xl font-bold text-primary">Gestion des utilisateurs</a>
+  </div>
+    <div  class="flex gap-2">
+        @if(isLoggedIn) {
+          @if(isAdmin) {
+            <button (click)="navigateToRegistration()" class="btn btn-primary btn-sm"> <i class="pi pi-user-plus"></i>Ajouter un utilisateur</button>
+          } @else {
+            <button (click)="navigateToRegistration()" class="btn btn-secondary btn-sm"><i class="pi pi-user"></i>S'enregistrer</button>
+          }
+          <button (click)="navigateToUsers()" class="btn btn-accent btn-sm"><i class="pi pi-list"></i>Liste des utilisateurs</button>
+          <button (click)="logout()" class="btn btn-error btn-sm"><i class="pi pi-sign-out"></i>Déconnexion</button>
         } @else {
-          <button (click)="navigateToRegistration()">S'enregistrer</button>
+          <button (click)="navigateToLogin()" class="btn btn-error btn-sm"> <i class="pi pi-sign-in"></i> Connexion</button>
         }
-        <button (click)="navigateToUsers()">Liste des utilisateurs</button>
-        <button (click)="logout()">Déconnexion</button>
-      } @else {
-        <button (click)="navigateToLogin()">Connexion</button>
-      }
-    </nav>
+      </div>
   </header>
