@@ -1,39 +1,132 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="firstName">Prénom</label>
-    <input id="firstName" formControlName="firstName" type="text" class="form-control" />
-    <div *ngIf="isFieldInvalid('firstName')" class="error">Prénom invalide</div>
-  </div>
+@if(!isAdmin) {
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmitPublic()">
+    <div class="form-group">
+      <label for="firstName">Prénom</label>
+      <input id="firstName" formControlName="firstName" type="text" class="form-control" />
+      @if(isFieldInvalid('firstName')) {
+        <div class="error">Prénom invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="lastName">Nom</label>
+      <input id="lastName" formControlName="lastName" type="text" class="form-control" />
+      @if(isFieldInvalid('lastName')) {
+      <div class="error">Nom invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" (blur)="checkUserExists()" />
+      @if(isFieldInvalid('email')) {
+        <div class="error">Email invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="text" class="form-control" />
+      @if(isFieldInvalid('password'))
+      {
+      <div class="error">Mot de passe invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="birthDate">Date de naissance</label>
+      <input id="birthDate" formControlName="birthDate" type="date" class="form-control" />
+      @if(isFieldInvalid('birthDate')) {
+        <div class="error">Vous devez avoir plus de 18 ans</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="city">Ville</label>
+      <input id="city" formControlName="city" type="text" class="form-control" />
+      @if(isFieldInvalid('city')) {
+        <div class="error">Ville invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="postalCode">Code postal</label>
+      <input id="postalCode" formControlName="postalCode" type="text" class="form-control" />
+      @if(isFieldInvalid('postalCode')) {
+        <div class="error">Code postal invalide</div>
+      }
+    </div>
+  
+    <button type="submit" [disabled]="registrationForm.invalid && userExists" class="btn btn-primary">Enregistrer</button>
+  </form>
+} @else {
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmitAdmin()">
+    <div class="form-group">
+      <label for="firstName">Prénom</label>
+      <input id="firstName" formControlName="firstName" type="text" class="form-control" />
+      @if(isFieldInvalid('firstName')) {
+        <div class="error">Prénom invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="lastName">Nom</label>
+      <input id="lastName" formControlName="lastName" type="text" class="form-control" />
+      @if(isFieldInvalid('lastName')) {
+      <div class="error">Nom invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" (blur)="checkUserExists()" />
+      @if(isFieldInvalid('email')) {
+        <div class="error">Email invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="password" class="form-control" />
+      @if(isFieldInvalid('password'))
+      {
+      <div class="error">Mot de passe invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="birthDate">Date de naissance</label>
+      <input id="birthDate" formControlName="birthDate" type="date" class="form-control" />
+      @if(isFieldInvalid('birthDate')) {
+        <div class="error">Vous devez avoir plus de 18 ans</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="city">Ville</label>
+      <input id="city" formControlName="city" type="text" class="form-control" />
+      @if(isFieldInvalid('city')) {
+        <div class="error">Ville invalide</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="postalCode">Code postal</label>
+      <input id="postalCode" formControlName="postalCode" type="text" class="form-control" />
+      @if(isFieldInvalid('postalCode')) {
+        <div class="error">Code postal invalide</div>
+      }
+    </div>
 
-  <div class="form-group">
-    <label for="lastName">Nom</label>
-    <input id="lastName" formControlName="lastName" type="text" class="form-control" />
-    <div *ngIf="isFieldInvalid('lastName')" class="error">Nom invalide</div>
-  </div>
+    <div class="form-group">
+      <label>Rôle:</label>
+      <select formControlName="role">
+        <option value="user">Utilisateur</option>
+        <option value="admin">Administrateur</option>
+      </select>
+    </div>
 
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" type="email" class="form-control" />
-    <div *ngIf="isFieldInvalid('email')" class="error">Email invalide</div>
-  </div>
+    <button type="submit" [disabled]="registrationForm.invalid && userExists" class="btn btn-primary">Enregistrer</button>
+  </form>
+}
 
-  <div class="form-group">
-    <label for="birthDate">Date de naissance</label>
-    <input id="birthDate" formControlName="birthDate" type="date" class="form-control" />
-    <div *ngIf="isFieldInvalid('birthDate')" class="error">Vous devez avoir plus de 18 ans</div>
-  </div>
-
-  <div class="form-group">
-    <label for="city">Ville</label>
-    <input id="city" formControlName="city" type="text" class="form-control" />
-    <div *ngIf="isFieldInvalid('city')" class="error">Ville invalide</div>
-  </div>
-
-  <div class="form-group">
-    <label for="postalCode">Code postal</label>
-    <input id="postalCode" formControlName="postalCode" type="text" class="form-control" />
-    <div *ngIf="isFieldInvalid('postalCode')" class="error">Code postal invalide</div>
-  </div>
-
-  <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-primary">Enregistrer</button>
-</form>

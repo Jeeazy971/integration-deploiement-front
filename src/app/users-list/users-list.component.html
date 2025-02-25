@@ -1,9 +1,39 @@
-<div *ngIf="users.length > 0">
+@if(users.length > 0) {
+  <div>
   <h2>Liste des utilisateurs inscrits</h2>
   <ul class="user-list">
-    <li *ngFor="let user of users">{{ user.firstName }} {{ user.lastName }} - {{ user.email }}</li>
+    @for(user of users; track user.id)
+    {
+      <li>
+        {{ user.firstName }} {{ user.lastName }} 
+        @if(isAdmin) {
+          - {{ user.email }} - {{ user.birthDate }}
+          <button (click)="deleteUser(user.id)">Supprimer</button>
+        }
+      </li>
+    }
   </ul>
 </div>
-<div *ngIf="users.length === 0">
+} @else {
   <p>Aucun utilisateur inscrit.</p>
+}
+
+@if(admins.length > 0) {
+  <div>
+  <h2>Liste des administrateurs inscrits</h2>
+  <ul class="user-list">
+    @for(admin of admins; track admin.id)
+    {
+      <li>
+        {{ admin.firstName }} {{ admin.lastName }} 
+        @if(isAdmin) {
+          - {{ admin.email }} - {{ admin.birthDate }}
+          <button (click)="deleteUser(admin.id)">Supprimer</button>
+        }
+      </li>
+    }
+  </ul>
 </div>
+} @else {
+  <p>Aucun admin inscrit.</p>
+}

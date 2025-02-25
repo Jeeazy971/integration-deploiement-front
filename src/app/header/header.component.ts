@@ -13,9 +13,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent {
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(private router: Router, private storageService: StorageService, private authService: AuthService) {
     this.isLoggedIn = !!this.storageService.getItem('adminToken');
+  }
+
+  ngOnInit() {
+    this.isAdmin = !!this.storageService.getItem('adminToken');
   }
 
   navigateToUsers() {
