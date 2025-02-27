@@ -12,6 +12,7 @@
           <button (click)="navigateToUsers()" class="btn btn-accent btn-sm"><i class="pi pi-list"></i>Liste des utilisateurs</button>
           <button (click)="logout()" class="btn btn-error btn-sm"><i class="pi pi-sign-out"></i>Déconnexion</button>
         } @else {
+          <button (click)="navigateToRegistration()" class="btn btn-secondary btn-sm"><i class="pi pi-user"></i>S'enregistrer</button>
           <button (click)="navigateToLogin()" class="btn btn-error btn-sm"> <i class="pi pi-sign-in"></i> Connexion</button>
         }
       </div>

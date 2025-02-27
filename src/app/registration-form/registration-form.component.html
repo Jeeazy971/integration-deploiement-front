@@ -28,6 +28,12 @@
       @if(isFieldInvalid('email')) {
         <span class="text-error text-sm">Email invalide</span>
       }
+      @if(userExists) {
+        <div class="alert alert-warning mt-2 text-sm flex items-center">
+          <i class="pi pi-exclamation-triangle text-yellow-500"></i>
+          <span class="ml-2">Cet email est déjà utilisé. Veuillez en choisir un autre.</span>
+        </div>
+      }
     </div>
 
     <div class="form-control">
@@ -103,6 +109,12 @@
       <input id="email" formControlName="email" type="email" class="input input-bordered w-full" (blur)="checkUserExists()" />
       @if(isFieldInvalid('email')) {
         <span class="text-error text-sm">Email invalide</span>
+      }
+      @if(userExists) {
+        <div class="alert alert-warning mt-2 text-sm flex items-center">
+          <i class="pi pi-exclamation-triangle text-yellow-500"></i>
+          <span class="ml-2">Cet email est déjà utilisé. Veuillez en choisir un autre.</span>
+        </div>
       }
     </div>
 

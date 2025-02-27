@@ -40,7 +40,9 @@ export class RegistrationFormComponent {
   }
 
   ngOnInit() {
-    this.isAdmin = !!this.storageService.getItem('adminToken');
+    this.authService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
   }
 
   isFieldInvalid(field: string): boolean {

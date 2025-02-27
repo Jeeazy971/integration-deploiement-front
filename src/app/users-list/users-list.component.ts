@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { StorageService } from '../services/storage.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-users-list',
@@ -17,11 +17,14 @@ export class UsersListComponent {
 
   constructor(
     private userService: UserService,
-    private storageService: StorageService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.isAdmin = !!this.storageService.getItem('adminToken');
+    this.authService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
+    
     if(this.isAdmin) {
       this.userService.getUsersForAdmin().subscribe(response => {
         this.users = response;
@@ -52,4 +55,16 @@ export class UsersListComponent {
       });
     }
   }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+  
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0'); // Ajoute un zéro devant si < 10
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Mois commence à 0
+    const year = date.getFullYear();
+  
+    return `${day}/${month}/${year}`;
+  }
+  
 }

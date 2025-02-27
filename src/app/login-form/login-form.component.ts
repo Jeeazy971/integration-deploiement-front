@@ -41,7 +41,7 @@ export class LoginFormComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         response => {
-          localStorage.setItem('adminToken', response.token);
+          localStorage.setItem('authToken', response.token);
           this.toastr.success('Connexion réussie', 'Succès');
           this.router.navigate(['/users']);
         },

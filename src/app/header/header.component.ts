@@ -16,11 +16,17 @@ export class HeaderComponent {
   isAdmin: boolean = false;
 
   constructor(private router: Router, private storageService: StorageService, private authService: AuthService) {
-    this.isLoggedIn = !!this.storageService.getItem('adminToken');
+    this.isLoggedIn = !!this.storageService.getItem('authToken');
   }
 
   ngOnInit() {
-    this.isAdmin = !!this.storageService.getItem('adminToken');
+    this.authService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
+
+    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   navigateToUsers() {
@@ -39,4 +45,6 @@ export class HeaderComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  
 }
