@@ -1,0 +1,25 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="card bg-base-100 shadow-xl max-w-md mx-auto p-6">
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Email</span>
+        </label>
+        <input id="email" formControlName="email" type="email" class="input input-bordered w-full" />
+        @if(isFieldInvalid('email')) {
+            <span class="text-error text-sm">Email invalide</span>
+        }
+    </div>
+
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Mot de passe</span>
+        </label>
+        <input id="password" formControlName="password" type="password" class="input input-bordered w-full" />
+        @if(isFieldInvalid('password')) {
+            <span class="text-error text-sm">Mot de passe invalide</span>
+        }
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary w-full mt-4">
+        Se connecter
+    </button>
+</form>
